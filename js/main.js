@@ -273,7 +273,6 @@ start.addEventListener('click', function() {
   } else {
     autoPlay = setInterval(autoPlayBackward, 3000);
     autoPlayControl = true;
-    orderForward = false;
     console.log('BUTTON START: sono ripartita BACKWARDS '); // DEBUG
   }
 });
