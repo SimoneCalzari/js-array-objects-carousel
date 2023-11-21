@@ -238,21 +238,55 @@ function autoPlayBackward() {
   }
 }
 
-// RICHIAMO LE FUNZIONI OGNI 3 SECONDI, PROVO SIA IL CASO AVANTI CHE INDIETRO
-// setInterval(autoPlayForward, 3000);
-// setInterval(autoPlayBackward, 3000);
-
+// NEW CODE PER ELIMINARE BUG CHE SE CLICCO SU START PIù VOLTE SU START SCATENA SET INTERVAL A RAFFICA
 
 const start = document.getElementById('start');
 const stop = document.getElementById('stop');
+const invert = document.getElementById('invert');
 
-let autoPlay;
+let autoPlay = setInterval(autoPlayForward, 3000);
+console.log('parto'); // DEBUG
+let autoPlayControl = true;
+let orderForward = true;
+
+
 
 start.addEventListener('click', function() {
+  if (autoPlayControl === true) {
+    console.log('sono gia startata'); // DEBUG
+    return
+  } 
   autoPlay = setInterval(autoPlayForward, 3000);
-  // autoPlay = setInterval(autoPlayBackward, 3000);
+  autoPlayControl = true;
+  console.log('sono ripartita'); // DEBUG
 });
 
+
+
 stop.addEventListener('click', function() {
+  if (autoPlayControl !== true) {
+    console.log('sono già ferma'); // DEBUG
+    return
+  }
   clearInterval(autoPlay);
+  autoPlayControl = false;
+  console.log('mi fermo');// DEBUG
 });
+
+
+
+invert.addEventListener('click', function() {
+  if (autoPlayControl === true && orderForward === true) {
+    clearInterval(autoPlay);
+    autoPlay = setInterval(autoPlayBackward, 3000);
+    orderForward = false;
+    console.log('ora vado all indietro');// DEBUG
+  } else if (autoPlayControl === true && orderForward === false) {
+    clearInterval(autoPlay);
+    autoPlay = setInterval(autoPlayForward, 3000);
+    orderForward = true;
+    console.log('ora vado in avanti');// DEBUG
+  } else {
+    console.log('sono fermo, prima ristartami');// DEBUG
+  }
+})

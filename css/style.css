@@ -118,15 +118,20 @@
     margin-top: -100px;
 }
 
-#start, #stop {
+#start, #stop, #invert {
     padding: 10px 20px;
     border-radius: 15px;
     font-size: 18px;
 }
 
-#start:hover, #stop:hover {
+#start:hover, #stop:hover, #invert:hover {
     cursor: pointer;
     background-color: black;
     color: white;
+}
+
+#start:active, #stop:active, #invert:active {
+    background-color: white;
+    color: black;
 }
 /* #endregion BOTTONI */
