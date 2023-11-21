@@ -250,43 +250,60 @@ let autoPlayControl = true;
 let orderForward = true;
 
 
+// // BUTTON START CHE FA PARTIRE SEMPRE FORWARD
+// start.addEventListener('click', function() {
+//   if (autoPlayControl === true) {
+//     console.log('BUTTON START: sono gia startata'); // DEBUG
+//     return
+//   } 
+//   autoPlay = setInterval(autoPlayForward, 3000);
+//   autoPlayControl = true;
+//   console.log('BUTTON START: sono ripartita '); // DEBUG
+// });
 
+// BUTTON START CHE FA PARTIRE IN BASE ALL'ULTIMA DIREZIONE PRIMA DI CLICCARE STOP
 start.addEventListener('click', function() {
   if (autoPlayControl === true) {
-    console.log('sono gia startata'); // DEBUG
+    console.log('BUTTON START: sono gia startata'); // DEBUG
     return
-  } 
-  autoPlay = setInterval(autoPlayForward, 3000);
-  autoPlayControl = true;
-  console.log('sono ripartita'); // DEBUG
+  } else if (orderForward === true) {
+    autoPlay = setInterval(autoPlayForward, 3000);
+    autoPlayControl = true;
+    console.log('BUTTON START: sono ripartita FORWARD '); // DEBUG
+  } else {
+    autoPlay = setInterval(autoPlayBackward, 3000);
+    autoPlayControl = true;
+    orderForward = false;
+    console.log('BUTTON START: sono ripartita BACKWARDS '); // DEBUG
+  }
 });
 
 
-
+// BUTTON STOP
 stop.addEventListener('click', function() {
   if (autoPlayControl !== true) {
-    console.log('sono già ferma'); // DEBUG
+    console.log('BUTTON STOP: sono già ferma'); // DEBUG
     return
-  }
+  } 
   clearInterval(autoPlay);
   autoPlayControl = false;
-  console.log('mi fermo');// DEBUG
+  console.log('BUTTON STOP: mi fermo');// DEBUG
 });
 
 
-
+// BUTTON INVERT
 invert.addEventListener('click', function() {
   if (autoPlayControl === true && orderForward === true) {
     clearInterval(autoPlay);
     autoPlay = setInterval(autoPlayBackward, 3000);
     orderForward = false;
-    console.log('ora vado all indietro');// DEBUG
+    console.log('BUTTON INVERT: ora vado BACKWARDS');// DEBUG
   } else if (autoPlayControl === true && orderForward === false) {
     clearInterval(autoPlay);
     autoPlay = setInterval(autoPlayForward, 3000);
     orderForward = true;
-    console.log('ora vado in avanti');// DEBUG
+    console.log('BUTTON INVERT: ora vado FORWARDS');// DEBUG
   } else {
-    console.log('sono fermo, prima ristartami');// DEBUG
+    console.log('BUTTON INVERT: sono fermo, prima ristartami');// DEBUG
   }
-})
+});
